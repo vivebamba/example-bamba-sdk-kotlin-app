@@ -13,10 +13,10 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val bambaService = BambaService()
-        val listView = findViewById<ListView>(R.id.product_list_view)
-        val productList = bambaService.getProducts()
-        val adapter = ProductAdapter(this, productList)
-        listView.adapter = adapter
+//        val bambaService = BambaService()
+//        val listView = findViewById<ListView>(R.id.product_list_view)
+//        val productList = bambaService.getProducts()
+//        val adapter = ProductAdapter(this, productList)
+//        listView.adapter = adapter
     }
 }
