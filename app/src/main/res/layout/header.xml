@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="41sp"
+    android:layout_marginBottom="35sp" >
+
+    <TextView
+        android:id="@+id/header_text"
+        android:layout_width="379dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:fontFamily="@font/silka_semibold"
+        android:text="@string/choose_your_plan"
+        android:textAlignment="viewStart"
+        android:textAppearance="?attr/textAppearanceHeadline3"
+        android:textSize="24sp"
+        android:textColor="@color/blue_700" />
+</LinearLayout>
