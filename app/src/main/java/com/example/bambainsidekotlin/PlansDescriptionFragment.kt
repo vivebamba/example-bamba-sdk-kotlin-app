@@ -5,11 +5,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.webkit.WebView
+import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
-
 
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val ARG_PLAN_SLUG = "planSlug"
@@ -58,6 +58,7 @@ class PlansDescriptionFragment : Fragment() {
                 }
             }
         })
+        this.setupBuyButtonListener(view)
         val priceView: TextView = view.findViewById(R.id.price)
         priceView.text = this.planPrice
         val myWebView: WebView = view.findViewById(R.id.webView)
@@ -84,5 +85,23 @@ class PlansDescriptionFragment : Fragment() {
                     putString(ARG_PLAN_NAME, planName)
                 }
             }
+    }
+
+    private fun setupBuyButtonListener(view: View) {
+        val button = view.findViewById<Button>(R.id.buy_button)
+        val successfulPurchaseFragment = SuccessfulPruchaseFragment()
+        button.setOnClickListener(object : View.OnClickListener {
+            override fun onClick(v: View?) {
+                val fragmentManager = getFragmentManager()
+                val f = fragmentManager?.findFragmentById(R.id.flFragment)
+                val fragmentTransaction = fragmentManager?.beginTransaction()
+                fragmentTransaction?.apply {
+                    if (f != null) {
+                        replace(f.id, successfulPurchaseFragment)
+                    }
+                    commit()
+                }
+            }
+        })
     }
 }

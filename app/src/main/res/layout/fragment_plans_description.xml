@@ -47,7 +47,9 @@
                 android:background="@drawable/button_background"
                 android:backgroundTint="@color/purple_200"
                 android:backgroundTintMode="add"
-                android:text="Contratar" />
+                android:fontFamily="@font/silka_semibold"
+                android:text="Contratar"
+                android:textAllCaps="false" />
         </LinearLayout>
 
     </RelativeLayout>

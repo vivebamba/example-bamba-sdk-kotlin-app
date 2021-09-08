@@ -31,7 +31,7 @@
                 android:layout_marginEnd="68dp"
                 android:fontFamily="@font/silka_semibold"
                 android:text="Plan básico"
-                android:textColor="?attr/colorPrimary"
+                android:textColor="@color/blue_700"
                 android:textFontWeight="600"
                 android:textSize="20sp"
                 android:textStyle="bold" />
@@ -58,7 +58,7 @@
                 android:fontFamily="@font/silka_semibold"
                 android:gravity="top"
                 android:text="$50 MXN."
-                android:textColor="?attr/colorPrimary"
+                android:textColor="@color/blue_700"
                 android:textSize="24sp"
                 android:textStyle="bold" />
 
