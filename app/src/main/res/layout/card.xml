@@ -62,18 +62,6 @@
                 android:textSize="24sp"
                 android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/kategori"
-                android:layout_width="match_parent"
-                android:layout_height="20dp"
-                android:layout_marginTop="44dp"
-                android:layout_marginEnd="16dp"
-                android:fontFamily="@font/silka_semibold"
-                android:gravity="start|center_vertical"
-                android:text="al mes"
-                android:textColor="?attr/colorPrimary"
-                android:textStyle="bold" />
-
         </LinearLayout>
 
     </RelativeLayout>

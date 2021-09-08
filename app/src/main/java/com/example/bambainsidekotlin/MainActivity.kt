@@ -5,10 +5,15 @@ import android.os.Bundle
 import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
+
+
+
+
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottomNavigationView)
         val homeFragment = HomeFragment()
         val plansFragment = PlansFragment()
@@ -17,13 +22,18 @@ class MainActivity : AppCompatActivity() {
 
         setCurrentFragment(homeFragment)
 
+        setSupportActionBar(findViewById(R.id.toolbar))
+        // showing the back button in action bar
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+
 
         bottomNavigationView.setOnNavigationItemSelectedListener {
-            when(it.itemId){
-                R.id.home->setCurrentFragment(homeFragment)
-                R.id.plans->setCurrentFragment(plansFragment)
-                R.id.bamba->setCurrentFragment(bambaFragment)
-                R.id.profile->setCurrentFragment(profileFragment)
+            when (it.itemId) {
+                R.id.home -> setCurrentFragment(homeFragment)
+                R.id.plans -> setCurrentFragment(plansFragment)
+                R.id.bamba -> setCurrentFragment(bambaFragment)
+                R.id.profile -> setCurrentFragment(profileFragment)
             }
             true
         }
