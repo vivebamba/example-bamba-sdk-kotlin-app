@@ -5,6 +5,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import androidx.appcompat.app.AppCompatActivity
+import com.vivebamba.bambalibrary.Bamba
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -33,8 +36,10 @@ class BambaFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_bamba, container, false)
+        (activity as AppCompatActivity?)!!.supportActionBar!!.hide()
+        val view = inflater.inflate(R.layout.fragment_bamba, container, false)
+        this.setupOpenChatButton(view)
+        return view
     }
 
     companion object {
@@ -55,5 +60,15 @@ class BambaFragment : Fragment() {
                     putString(ARG_PARAM2, param2)
                 }
             }
+    }
+
+    private fun setupOpenChatButton(view: View) {
+        val button = view.findViewById<Button>(R.id.openChat)
+        button.setOnClickListener(object : View.OnClickListener {
+            override fun onClick(v: View?) {
+                val bamba = Bamba
+                context?.let { bamba.openchat(it) }
+            }
+        })
     }
 }

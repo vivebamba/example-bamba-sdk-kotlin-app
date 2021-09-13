@@ -1,17 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".BambaFragment">
 
-     <TextView
-        android:id="@+id/homeFragment"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Bamba"
-        android:color="@color/blue_700"
-        android:textSize="40sp"
-        android:textStyle="italic|bold" />
+     <ImageView
+         android:id="@+id/imageView"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:src="@drawable/bamba"
+         app:layout_constraintBottom_toBottomOf="parent"
+         app:layout_constraintEnd_toEndOf="parent"
+         app:layout_constraintStart_toStartOf="parent"
+         app:layout_constraintTop_toTopOf="parent"
+         app:layout_constraintVertical_bias="0.668" />
 
-</FrameLayout>
+     <Button
+         android:id="@+id/openChat"
+         android:layout_width="351dp"
+         android:layout_height="69dp"
+         android:layout_marginBottom="99dp"
+         android:background="@drawable/button_background"
+         android:fontFamily="@font/silka_semibold"
+         android:text="Iniciar Chat"
+         android:textAllCaps="false"
+         android:textSize="15sp"
+         app:layout_constraintBottom_toBottomOf="parent"
+         app:layout_constraintEnd_toEndOf="parent"
+         app:layout_constraintStart_toStartOf="parent" />
+
+     <TextView
+         android:id="@+id/textView"
+         android:layout_width="253dp"
+         android:layout_height="109dp"
+         android:layout_marginBottom="120dp"
+         android:fontFamily="@font/silka_semibold"
+         android:text="¡Hola Carlos! ¿Necesitas asistencia?"
+         android:textAlignment="center"
+         android:textAppearance="@style/chat_title"
+         android:textSize="30sp"
+         app:layout_constraintBottom_toTopOf="@+id/imageView"
+         app:layout_constraintEnd_toEndOf="parent"
+         app:layout_constraintStart_toStartOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>
