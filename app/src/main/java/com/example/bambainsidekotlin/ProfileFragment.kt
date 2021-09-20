@@ -5,6 +5,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.bambainsidekotlin.adapters.ServicesAdapter
+import com.example.bambainsidekotlin.models.Service
+
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -32,9 +37,15 @@ class ProfileFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_profile, container, false)
+    ): View {
+        val view =  inflater.inflate(R.layout.fragment_profile, container, false)
+        val servicesListRecyclerView = view.findViewById(R.id.services_list) as RecyclerView
+
+        val services = Service.createServicesList(3)
+        val adapter = ServicesAdapter(services)
+        servicesListRecyclerView.adapter = adapter
+        servicesListRecyclerView.layoutManager = LinearLayoutManager(activity)
+        return view
     }
 
     companion object {
