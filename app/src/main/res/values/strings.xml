@@ -2,11 +2,19 @@
     <string name="app_name">BambaInsideKotlin</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="choose_your_plan">Elige tu plan</string>
-    <!--    Home Strings-->
+    <!--    Home Strings -->
     <string name="for_share">
         Para compartir y sincronizar tus datos de usuario con Bamba es importante que leas y aceptes los Términos y condiciones
     </string>
     <string name="accept_terms">
         Soy mayor de edad, he leído y acepto los términos y condiciones
+    </string>
+    <!--    Plan Strings -->
+    <string name="plan_price_format">
+        $%1$s MXN.
+    </string>
+    <!--    Plan Description Strings-->
+    <string name="plan__description_price_format">
+        $%1$s MXN al mes
     </string>
 </resources>

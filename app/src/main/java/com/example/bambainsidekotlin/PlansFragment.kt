@@ -9,8 +9,8 @@ import androidx.recyclerview.widget.ConcatAdapter
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.appcompat.app.AppCompatActivity
-
-
+import com.example.bambainsidekotlin.adapters.PlansAdapter
+import com.example.bambainsidekotlin.services.BambaService
 
 
 // TODO: Rename parameter arguments, choose names that match
@@ -27,8 +27,7 @@ class PlansFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
-    private var layoutManager: RecyclerView.LayoutManager? = null
-    private var adapter: RecyclerView.Adapter<RecyclerAdapter.ViewHolder>? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -46,10 +45,12 @@ class PlansFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_plans, container, false)
     }
 
-    private val concatAdapter = ConcatAdapter(HeaderAdapter(), RecyclerAdapter())
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val recyclerView = view.findViewById<RecyclerView>(R.id.recycler_view)
+        val bambaService = BambaService()
+        val productList = bambaService.getProducts()
+        val concatAdapter = ConcatAdapter(HeaderAdapter(), PlansAdapter(productList))
         recyclerView.apply {
             layoutManager = LinearLayoutManager(activity)
             // set the custom adapter to the RecyclerView
