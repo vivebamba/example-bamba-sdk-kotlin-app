@@ -2,13 +2,13 @@ package com.example.bambainsidekotlin.services
 
 import com.example.bambainsidekotlin.models.DefaultPaymentMethod
 import com.example.bambainsidekotlin.models.LoggedUser
+import com.example.bambainsidekotlin.models.ParcelableProductDetails
 import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import com.vivebamba.client.apis.StoreApi
 import com.vivebamba.client.models.*
 import org.json.JSONArray
-import java.time.LocalDate
 
 class BambaService{
     fun getProducts(): ArrayList<Product>{
@@ -51,5 +51,31 @@ class BambaService{
         val customer = Customer(name, lastName, secondLastName,cellphone, email, birthdate, gender)
         val order = Order(customer, products, paymentParams)
         storeApi.storeOrdersPost(order)
+    }
+
+    fun getProductDescription(selectedPlanDescriptionList: List<ProductDescription>): ArrayList<com.example.bambainsidekotlin.models.ParcelableProductDescription> {
+        val productList = ArrayList<com.example.bambainsidekotlin.models.ParcelableProductDescription>()
+        for (element in selectedPlanDescriptionList) {
+            val parcelableProductDescription = com.example.bambainsidekotlin.models.ParcelableProductDescription(
+                element.section,
+                element.details?.let { this.getProductDescriptionDetails(it) }
+
+            )
+            productList.add(parcelableProductDescription)
+        }
+        return productList
+    }
+
+    private fun getProductDescriptionDetails(productDetails: List<ProductDetails>): ArrayList<ParcelableProductDetails> {
+        val productDetailList = ArrayList<ParcelableProductDetails>()
+        for (element in productDetails) {
+            val parcelableProductDescription = ParcelableProductDetails(
+                element.head,
+                element.body
+
+            )
+            productDetailList.add(parcelableProductDescription)
+        }
+        return productDetailList
     }
 }

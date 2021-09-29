@@ -13,8 +13,14 @@
     <string name="plan_price_format">
         $%1$s MXN.
     </string>
+    <string name="cant_show_products_due_to_connection">
+        No se pueden mostrar los productos, revisa tu conexión a internet por favor
+    </string>
     <!--    Plan Description Strings-->
     <string name="plan__description_price_format">
         $%1$s MXN al mes
+    </string>
+    <string name="description_detail_item_format">
+        • %1$s
     </string>
 </resources>

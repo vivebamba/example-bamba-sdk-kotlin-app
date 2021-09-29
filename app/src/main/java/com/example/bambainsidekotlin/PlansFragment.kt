@@ -1,16 +1,20 @@
 package com.example.bambainsidekotlin
 
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.ConcatAdapter
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.appcompat.app.AppCompatActivity
 import com.example.bambainsidekotlin.adapters.PlansAdapter
 import com.example.bambainsidekotlin.services.BambaService
+import java.lang.Exception
 
 
 // TODO: Rename parameter arguments, choose names that match
@@ -18,11 +22,6 @@ import com.example.bambainsidekotlin.services.BambaService
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [PlansFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class PlansFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
@@ -40,7 +39,6 @@ class PlansFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         (activity as AppCompatActivity?)!!.supportActionBar!!.hide()
         return inflater.inflate(R.layout.fragment_plans, container, false)
     }
@@ -49,24 +47,36 @@ class PlansFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val recyclerView = view.findViewById<RecyclerView>(R.id.recycler_view)
         val bambaService = BambaService()
-        val productList = bambaService.getProducts()
-        val concatAdapter = ConcatAdapter(HeaderAdapter(), PlansAdapter(productList))
-        recyclerView.apply {
-            layoutManager = LinearLayoutManager(activity)
-            // set the custom adapter to the RecyclerView
-            adapter = concatAdapter
+
+        try {
+            if (!this.hasInternetConnection()) {
+                Toast.makeText(view.context, getString(R.string.cant_show_products_due_to_connection), Toast.LENGTH_LONG).show()
+            } else {
+                val productList = bambaService.getProducts()
+                val concatAdapter = ConcatAdapter(HeaderAdapter(), PlansAdapter(productList))
+                recyclerView.apply {
+                    layoutManager = LinearLayoutManager(activity)
+                    adapter = concatAdapter
+                }
+            }
+        } catch (e: Exception) {
+            Toast.makeText(view.context, e.message, Toast.LENGTH_LONG).show()
         }
     }
 
+    private fun hasInternetConnection(): Boolean {
+        val connectivityManager = activity?.getSystemService(ConnectivityManager::class.java)
+        val currentNetwork = connectivityManager?.activeNetwork
+        val caps = connectivityManager?.getNetworkCapabilities(currentNetwork)
+
+        if (caps === null) {
+            return false
+        }
+
+        return caps.hasCapability(NetworkCapabilities.NET_CAPABILITY_VALIDATED)
+    }
+
     companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment PlansFragment.
-         */
         // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(param1: String, param2: String) =

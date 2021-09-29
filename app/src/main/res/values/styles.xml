@@ -129,4 +129,15 @@
             @font/silka_regular
         </item>
     </style>
+    <style name="description_detail_item">
+        <item name="android:textSize">
+            14sp
+        </item>
+        <item name="android:textColor">
+            @color/blue_700
+        </item>
+        <item name="android:fontFamily">
+            @font/silka_regular
+        </item>
+    </style>
 </resources>

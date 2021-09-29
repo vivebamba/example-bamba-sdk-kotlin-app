@@ -1,0 +1,44 @@
+package com.example.bambainsidekotlin.adapters
+
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.TextView
+import androidx.recyclerview.widget.RecyclerView
+import com.example.bambainsidekotlin.R
+import com.example.bambainsidekotlin.models.ParcelableProductDescription
+import androidx.recyclerview.widget.LinearLayoutManager
+
+
+class PlanDescriptionAdapter(private val planDescriptions: ArrayList<ParcelableProductDescription>):
+    RecyclerView.Adapter<PlanDescriptionAdapter.ViewHolder>() {
+
+    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val descriptionTextView: TextView = itemView.findViewById(R.id.description_title)
+        val detailSubtitleRecyclerView: RecyclerView = itemView.findViewById(R.id.plan_description_subtitle)
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        val context = parent.context
+        val inflater = LayoutInflater.from(context)
+        val cardView = inflater.inflate(R.layout.description_card, parent, false)
+
+        return ViewHolder(cardView)
+    }
+
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        val context = holder.descriptionTextView.context
+        val planDescription: ParcelableProductDescription = planDescriptions[position]
+        val planDescriptionsTextView = holder.descriptionTextView
+        planDescriptionsTextView.text = planDescription.section
+
+        val descriptionDetailsRecyclerView = holder.detailSubtitleRecyclerView
+        val adapter = planDescription.details?.let { PlanDescriptionDetailsAdapter(it) }
+        descriptionDetailsRecyclerView.adapter = adapter
+        descriptionDetailsRecyclerView.layoutManager = LinearLayoutManager(context)
+    }
+
+    override fun getItemCount(): Int {
+        return planDescriptions.size
+    }
+}

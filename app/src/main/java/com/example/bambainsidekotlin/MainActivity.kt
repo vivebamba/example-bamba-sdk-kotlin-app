@@ -37,12 +37,6 @@ class MainActivity : AppCompatActivity() {
             "68884b0e-b424-48eb-8775-fe197c6b9e7c"
         )
 
-//        binding.fab.setOnClickListener {
-//            bamba.openchat(this)
-//        }
-
-
-
         bottomNavigationView.setOnNavigationItemSelectedListener {
             when (it.itemId) {
                 R.id.home -> setCurrentFragment(homeFragment)
@@ -52,11 +46,6 @@ class MainActivity : AppCompatActivity() {
             }
             true
         }
-//        val bambaService = BambaService()
-//        val listView = findViewById<ListView>(R.id.product_list_view)
-//        val productList = bambaService.getProducts()
-//        val adapter = ProductAdapter(this, productList)
-//        listView.adapter = adapter
     }
 
     private fun setCurrentFragment(fragment: Fragment)
