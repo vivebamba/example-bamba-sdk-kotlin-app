@@ -58,24 +58,10 @@ class BambaService{
         for (element in selectedPlanDescriptionList) {
             val parcelableProductDescription = com.example.bambainsidekotlin.models.ParcelableProductDescription(
                 element.section,
-                element.details?.let { this.getProductDescriptionDetails(it) }
-
+                element.body
             )
             productList.add(parcelableProductDescription)
         }
         return productList
-    }
-
-    private fun getProductDescriptionDetails(productDetails: List<ProductDetails>): ArrayList<ParcelableProductDetails> {
-        val productDetailList = ArrayList<ParcelableProductDetails>()
-        for (element in productDetails) {
-            val parcelableProductDescription = ParcelableProductDetails(
-                element.head,
-                element.body
-
-            )
-            productDetailList.add(parcelableProductDescription)
-        }
-        return productDetailList
     }
 }

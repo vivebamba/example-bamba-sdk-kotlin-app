@@ -44,7 +44,7 @@
             android:layout_marginTop="50sp">
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/plan_description_subtitle"
+                android:id="@+id/plan_description_details_item_list"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>

@@ -15,7 +15,7 @@ class PlanDescriptionAdapter(private val planDescriptions: ArrayList<ParcelableP
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val descriptionTextView: TextView = itemView.findViewById(R.id.description_title)
-        val detailSubtitleRecyclerView: RecyclerView = itemView.findViewById(R.id.plan_description_subtitle)
+        val detailItemRecyclerView: RecyclerView = itemView.findViewById(R.id.plan_description_details_item_list)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -32,10 +32,14 @@ class PlanDescriptionAdapter(private val planDescriptions: ArrayList<ParcelableP
         val planDescriptionsTextView = holder.descriptionTextView
         planDescriptionsTextView.text = planDescription.section
 
-        val descriptionDetailsRecyclerView = holder.detailSubtitleRecyclerView
-        val adapter = planDescription.details?.let { PlanDescriptionDetailsAdapter(it) }
-        descriptionDetailsRecyclerView.adapter = adapter
-        descriptionDetailsRecyclerView.layoutManager = LinearLayoutManager(context)
+        val detailItemRecyclerView = holder.detailItemRecyclerView
+        val detailItemsAdapter = planDescription.body?.let {
+            PlanDescriptionDetailItemsAdapter(
+                it
+            )
+        }
+        detailItemRecyclerView.adapter = detailItemsAdapter
+        detailItemRecyclerView.layoutManager = LinearLayoutManager(context)
     }
 
     override fun getItemCount(): Int {
