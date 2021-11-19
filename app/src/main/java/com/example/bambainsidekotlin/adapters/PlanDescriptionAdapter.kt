@@ -1,4 +1,4 @@
-package com.example.bambainsidekotlin.adapters
+/*package com.example.bambainsidekotlin.adapters
 
 import android.view.LayoutInflater
 import android.view.View
@@ -45,4 +45,4 @@ class PlanDescriptionAdapter(private val planDescriptions: ArrayList<ParcelableP
     override fun getItemCount(): Int {
         return planDescriptions.size
     }
-}
+}*/

@@ -36,13 +36,14 @@ class PlansAdapter (private val plans: List<Product>): RecyclerView.Adapter<Plan
                 val bundle = Bundle()
                 bundle.putString("planSlug", slug)
                 val bamba = BambaService()
-                val parcelablePlanDesciptionList = selectedPlan.description?.let { it1 ->
+                bamba.getProducts()
+                /*val parcelablePlanDesciptionList = selectedPlan.d escription?.let { it1 ->
                     bamba.getProductDescription(
                         it1
                     )
-                }
+                }*/
 
-                bundle.putParcelableArrayList("planDescription", parcelablePlanDesciptionList)
+                //bundle.putParcelableArrayList("planDescription", parcelablePlanDesciptionList)
 
                 if (planPrice != null) {
                     bundle.putDouble("planPrice", planPrice)

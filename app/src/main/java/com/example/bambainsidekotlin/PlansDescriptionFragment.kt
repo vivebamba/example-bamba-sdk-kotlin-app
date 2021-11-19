@@ -13,8 +13,7 @@ import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.bambainsidekotlin.adapters.PlanDescriptionAdapter
-import com.example.bambainsidekotlin.models.ParcelableProductDescription
+//import com.example.bambainsidekotlin.adapters.PlanDescriptionAdapter
 import com.example.bambainsidekotlin.services.BambaService
 
 
@@ -30,7 +29,7 @@ class PlansDescriptionFragment : Fragment() {
     private var planPrice: Double? = null
     private var planName: String? = null
     private var planSku: String? = null
-    private var planDescriptionParcelable: ArrayList<ParcelableProductDescription>? = null
+    private var planDescriptionParcelable: ArrayList<String>? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,7 +38,6 @@ class PlansDescriptionFragment : Fragment() {
             planPrice = it.getDouble(ARG_PLAN_PRICE)
             planName = it.getString(ARG_PLAN_NAME)
             planSku = it.getString(ARG_PLAN_SKU)
-            planDescriptionParcelable = it.getParcelableArrayList(ARG_PLAN_DESCRIPTION)
         }
     }
 
@@ -54,9 +52,9 @@ class PlansDescriptionFragment : Fragment() {
         val plansFragment = PlansFragment()
 
         val descriptionListRecyclerView = view.findViewById(R.id.planDescription) as RecyclerView
-        val adapter = planDescriptionParcelable?.let { PlanDescriptionAdapter(it) }
+        /*val adapter = planDescriptionParcelable?.let { PlanDescriptionAdapter(it) }
         descriptionListRecyclerView.adapter = adapter
-        descriptionListRecyclerView.layoutManager = LinearLayoutManager(activity)
+        descriptionListRecyclerView.layoutManager = LinearLayoutManager(activity)*/
 
         toolbar?.setNavigationOnClickListener(object : View.OnClickListener {
             override fun onClick(v: View?) {
@@ -90,7 +88,7 @@ class PlansDescriptionFragment : Fragment() {
             planSlug: String,
             planPrice: Double,
             planName: String,
-            planDescriptionParcelable: ArrayList<ParcelableProductDescription>
+            //planDescriptionParcelable: ArrayList<ParcelableProductDescription>
         ) =
             PlansDescriptionFragment().apply {
                 arguments = Bundle().apply {
@@ -98,7 +96,7 @@ class PlansDescriptionFragment : Fragment() {
                     putDouble(ARG_PLAN_PRICE, planPrice)
                     putString(ARG_PLAN_NAME, planName)
                     putString(ARG_PLAN_SKU, planSlug)
-                    putSerializable(ARG_PLAN_DESCRIPTION, planDescriptionParcelable)
+                    //putSerializable(ARG_PLAN_DESCRIPTION, planDescriptionParcelable)
                 }
             }
     }

@@ -2,7 +2,7 @@ package com.example.bambainsidekotlin.services
 
 import com.example.bambainsidekotlin.models.DefaultPaymentMethod
 import com.example.bambainsidekotlin.models.LoggedUser
-import com.example.bambainsidekotlin.models.ParcelableProductDetails
+//import com.example.bambainsidekotlin.models.ParcelableProductDetails
 import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
@@ -53,7 +53,7 @@ class BambaService{
         storeApi.storeOrdersPost(order)
     }
 
-    fun getProductDescription(selectedPlanDescriptionList: List<ProductDescription>): ArrayList<com.example.bambainsidekotlin.models.ParcelableProductDescription> {
+    /*fun getProductDescription(selectedPlanDescriptionList: List<ProductDescription>): ArrayList<com.example.bambainsidekotlin.models.ParcelableProductDescription> {
         val productList = ArrayList<com.example.bambainsidekotlin.models.ParcelableProductDescription>()
         for (element in selectedPlanDescriptionList) {
             val parcelableProductDescription = com.example.bambainsidekotlin.models.ParcelableProductDescription(
@@ -63,5 +63,5 @@ class BambaService{
             productList.add(parcelableProductDescription)
         }
         return productList
-    }
+    }*/
 }

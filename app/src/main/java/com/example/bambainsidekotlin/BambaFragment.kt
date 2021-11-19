@@ -64,11 +64,9 @@ class BambaFragment : Fragment() {
 
     private fun setupOpenChatButton(view: View) {
         val button = view.findViewById<Button>(R.id.openChat)
-        button.setOnClickListener(object : View.OnClickListener {
-            override fun onClick(v: View?) {
-                val bamba = Bamba
-                context?.let { bamba.openchat(it) }
-            }
-        })
+        button.setOnClickListener {
+            val bamba = Bamba
+            context?.let { bamba.openchat(it) }
+        }
     }
 }
