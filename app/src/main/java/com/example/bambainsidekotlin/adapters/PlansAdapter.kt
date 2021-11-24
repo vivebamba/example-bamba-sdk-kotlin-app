@@ -12,8 +12,6 @@ import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.RecyclerView
 import com.example.bambainsidekotlin.PlansDescriptionFragment
 import com.example.bambainsidekotlin.R
-import com.example.bambainsidekotlin.services.BambaService
-import com.vivebamba.bambalibrary.Bamba
 import com.vivebamba.client.models.Product
 
 class PlansAdapter (private val plans: List<Product>): RecyclerView.Adapter<PlansAdapter.ViewHolder>() {
@@ -34,22 +32,19 @@ class PlansAdapter (private val plans: List<Product>): RecyclerView.Adapter<Plan
                 val planPrice = selectedPlan.price
                 val planSku = selectedPlan.sku
                 val bundle = Bundle()
-                bundle.putString("planSlug", slug)
-                val bamba = BambaService()
-                bamba.getProducts()
-                /*val parcelablePlanDesciptionList = selectedPlan.d escription?.let { it1 ->
-                    bamba.getProductDescription(
-                        it1
-                    )
-                }*/
 
-                //bundle.putParcelableArrayList("planDescription", parcelablePlanDesciptionList)
+                val parcelablePlanDescriptionList = selectedPlan.description?.map {
+                    ImplPlanDescription(section = it.section, body = it.body)
+                }?.toList()
 
                 if (planPrice != null) {
                     bundle.putDouble("planPrice", planPrice)
                 }
+
+                bundle.putString("planSlug", slug)
                 bundle.putString("planName", planName)
                 bundle.putString("planSku", planSku)
+                bundle.putParcelableArrayList("planDescription", ArrayList(parcelablePlanDescriptionList))
 
                 planDescriptionFragment.arguments = bundle
 

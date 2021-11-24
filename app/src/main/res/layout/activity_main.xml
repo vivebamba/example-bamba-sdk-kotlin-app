@@ -22,7 +22,7 @@
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="@drawable/toolbar_background"
+        android:background="@color/white"
         android:fontFamily="@font/silka_semibold"
         android:theme="@style/elige_tu_pl"
         app:layout_constraintEnd_toEndOf="parent"

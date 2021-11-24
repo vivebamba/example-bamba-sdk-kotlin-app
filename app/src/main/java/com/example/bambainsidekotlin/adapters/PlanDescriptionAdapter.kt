@@ -1,4 +1,4 @@
-/*package com.example.bambainsidekotlin.adapters
+package com.example.bambainsidekotlin.adapters
 
 import android.view.LayoutInflater
 import android.view.View
@@ -6,11 +6,11 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.bambainsidekotlin.R
-import com.example.bambainsidekotlin.models.ParcelableProductDescription
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.vivebamba.client.models.ProductDescription
 
 
-class PlanDescriptionAdapter(private val planDescriptions: ArrayList<ParcelableProductDescription>):
+class PlanDescriptionAdapter(private val planDescriptions: ArrayList<ProductDescription>):
     RecyclerView.Adapter<PlanDescriptionAdapter.ViewHolder>() {
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -28,7 +28,7 @@ class PlanDescriptionAdapter(private val planDescriptions: ArrayList<ParcelableP
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val context = holder.descriptionTextView.context
-        val planDescription: ParcelableProductDescription = planDescriptions[position]
+        val planDescription = planDescriptions[position]
         val planDescriptionsTextView = holder.descriptionTextView
         planDescriptionsTextView.text = planDescription.section
 
@@ -45,4 +45,4 @@ class PlanDescriptionAdapter(private val planDescriptions: ArrayList<ParcelableP
     override fun getItemCount(): Int {
         return planDescriptions.size
     }
-}*/
+}

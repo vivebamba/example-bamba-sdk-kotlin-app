@@ -5,10 +5,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.bambainsidekotlin.adapters.ServicesAdapter
 import com.example.bambainsidekotlin.models.Service
+import com.example.bambainsidekotlin.services.BambaService
+import java.lang.Exception
 
 
 // TODO: Rename parameter arguments, choose names that match
@@ -37,14 +40,21 @@ class ProfileFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
+    ) : View {
         val view =  inflater.inflate(R.layout.fragment_profile, container, false)
         val servicesListRecyclerView = view.findViewById(R.id.services_list) as RecyclerView
 
-        val services = Service.createServicesList(3)
-        val adapter = ServicesAdapter(services)
-        servicesListRecyclerView.adapter = adapter
-        servicesListRecyclerView.layoutManager = LinearLayoutManager(activity)
+        try {
+            val bambaService = BambaService()
+            val services = bambaService.getServices()
+            val adapter = ServicesAdapter(services)
+            servicesListRecyclerView.adapter = adapter
+            servicesListRecyclerView.layoutManager = LinearLayoutManager(activity)
+        } catch (e: Exception) {
+            println(e.message)
+            Toast.makeText(view.context, e.message, Toast.LENGTH_LONG).show()
+        }
+
         return view
     }
 

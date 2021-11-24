@@ -10,4 +10,5 @@ object LoggedUser {
     const val email = "nteslamndc@vivebamba.com"
     val birthdate: LocalDate = LocalDate.parse("1986-09-30")
     val gender = "M"
+    const val id = "e7705831-70e4-403a-85cf-f77ccb279ce5"
 }

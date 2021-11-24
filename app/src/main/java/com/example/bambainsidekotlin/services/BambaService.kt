@@ -2,15 +2,16 @@ package com.example.bambainsidekotlin.services
 
 import com.example.bambainsidekotlin.models.DefaultPaymentMethod
 import com.example.bambainsidekotlin.models.LoggedUser
-//import com.example.bambainsidekotlin.models.ParcelableProductDetails
 import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
+import com.vivebamba.client.apis.CustomerApi
 import com.vivebamba.client.apis.StoreApi
+import com.vivebamba.client.infrastructure.OffsetDateTimeAdapter
 import com.vivebamba.client.models.*
 import org.json.JSONArray
 
-class BambaService{
+class BambaService {
     fun getProducts(): ArrayList<Product>{
         val storeApi = StoreApi()
         val moshi = Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
@@ -53,15 +54,23 @@ class BambaService{
         storeApi.storeOrdersPost(order)
     }
 
-    /*fun getProductDescription(selectedPlanDescriptionList: List<ProductDescription>): ArrayList<com.example.bambainsidekotlin.models.ParcelableProductDescription> {
-        val productList = ArrayList<com.example.bambainsidekotlin.models.ParcelableProductDescription>()
-        for (element in selectedPlanDescriptionList) {
-            val parcelableProductDescription = com.example.bambainsidekotlin.models.ParcelableProductDescription(
-                element.section,
-                element.body
-            )
-            productList.add(parcelableProductDescription)
+    fun getServices(): ArrayList<CustomerService> {
+        val customerApi = CustomerApi()
+        val loggedUser = LoggedUser
+
+        val services = customerApi.customerCustomerIdServicesGet(loggedUser.id)
+        val jsArray = JSONArray(services)
+        val servicesList = ArrayList<CustomerService>()
+        val moshi = Moshi.Builder().add(KotlinJsonAdapterFactory()).add(OffsetDateTimeAdapter()).build()
+        val jsonAdapter: JsonAdapter<CustomerService> = moshi.adapter(CustomerService::class.java)
+
+        for (i in 0 until jsArray.length()) {
+            val jsonObject = jsArray.getJSONObject(i)
+            val customerService: CustomerService? = jsonAdapter.fromJson(jsonObject.toString())
+            if (customerService is CustomerService)
+                servicesList.add(customerService)
         }
-        return productList
-    }*/
+
+        return servicesList
+    }
 }
