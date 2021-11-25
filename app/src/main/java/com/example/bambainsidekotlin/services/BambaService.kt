@@ -10,6 +10,7 @@ import com.vivebamba.client.apis.StoreApi
 import com.vivebamba.client.infrastructure.OffsetDateTimeAdapter
 import com.vivebamba.client.models.*
 import org.json.JSONArray
+import org.json.JSONObject
 
 class BambaService {
     fun getProducts(): ArrayList<Product>{
@@ -69,6 +70,26 @@ class BambaService {
             val customerService: CustomerService? = jsonAdapter.fromJson(jsonObject.toString())
             if (customerService is CustomerService)
                 servicesList.add(customerService)
+        }
+
+        return servicesList
+    }
+
+    fun cancelService(serviceId: String): List<CancellationResponse> {
+        val customerApi = CustomerApi()
+        val loggedUser = LoggedUser
+        val response = customerApi.customerCustomerIdServicesServiceIdCancelPut(customerId = loggedUser.id, serviceId = serviceId)
+
+        val jsArray = JSONArray(response)
+        val servicesList = ArrayList<CancellationResponse>()
+        val moshi = Moshi.Builder().add(KotlinJsonAdapterFactory()).add(OffsetDateTimeAdapter()).build()
+        val jsonAdapter: JsonAdapter<CancellationResponse> = moshi.adapter(CancellationResponse::class.java)
+
+        for (i in 0 until jsArray.length()) {
+            val jsonObject = jsArray.getJSONObject(i)
+            val cancellations: CancellationResponse? = jsonAdapter.fromJson(jsonObject.toString())
+            if (cancellations is CancellationResponse )
+                servicesList.add(cancellations)
         }
 
         return servicesList

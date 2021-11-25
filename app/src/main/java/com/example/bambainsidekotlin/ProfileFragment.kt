@@ -47,7 +47,7 @@ class ProfileFragment : Fragment() {
         try {
             val bambaService = BambaService()
             val services = bambaService.getServices()
-            val adapter = ServicesAdapter(services)
+            val adapter = ServicesAdapter(view.context, services)
             servicesListRecyclerView.adapter = adapter
             servicesListRecyclerView.layoutManager = LinearLayoutManager(activity)
         } catch (e: Exception) {
