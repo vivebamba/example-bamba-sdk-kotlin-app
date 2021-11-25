@@ -1,6 +1,8 @@
 package com.example.bambainsidekotlin
 
+import android.content.Intent
 import android.content.res.Resources
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -24,6 +26,7 @@ private const val ARG_PLAN_PRICE = "planPrice"
 private const val ARG_PLAN_NAME = "planName"
 private const val ARG_PLAN_SKU = "planSku"
 private const val ARG_PLAN_DESCRIPTION = "planDescription"
+private const val ARG_TERMS = "terms"
 
 class PlansDescriptionFragment : Fragment() {
 
@@ -31,6 +34,7 @@ class PlansDescriptionFragment : Fragment() {
     private var planPrice: Double? = null
     private var planName: String? = null
     private var planSku: String? = null
+    private var terms: String? = null
     private var planDescriptionParcelable: ArrayList<ImplPlanDescription>? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -40,6 +44,7 @@ class PlansDescriptionFragment : Fragment() {
             planPrice = it.getDouble(ARG_PLAN_PRICE)
             planName = it.getString(ARG_PLAN_NAME)
             planSku = it.getString(ARG_PLAN_SKU)
+            terms = it.getString(ARG_TERMS)
             planDescriptionParcelable = it.getParcelableArrayList(ARG_PLAN_DESCRIPTION)
         }
     }
@@ -80,7 +85,20 @@ class PlansDescriptionFragment : Fragment() {
         val priceView: TextView = view.findViewById(R.id.price)
         priceView.text = priceFormat
 
+        val serviceTerms: TextView = view.findViewById(R.id.tvTerms)
+        serviceTerms.setOnClickListener {
+            terms?.let { it1 -> openWebPage(it1) }
+        }
+
         return view
+    }
+
+    fun openWebPage(url: String) {
+        val webpage: Uri = Uri.parse(url)
+        val intent = Intent(Intent.ACTION_VIEW, webpage)
+        if (activity?.let { intent.resolveActivity(it.packageManager) } != null) {
+            startActivity(intent)
+        }
     }
 
     companion object {

@@ -2,6 +2,6 @@ rootProject.name = "BambaInsideKotlin"
 include ':app'
 
 // remove only for internal use
-include ':bamba-sdk-kotlin'
-project(':bamba-sdk-kotlin').projectDir = new File(settingsDir, '../bamba-sdk-kotlin')
+//include ':bamba-sdk-kotlin'
+//project(':bamba-sdk-kotlin').projectDir = new File(settingsDir, '../bamba-sdk-kotlin')
 

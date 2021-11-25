@@ -37,9 +37,9 @@ android {
     }
 
     // remove only for internal use
-    packagingOptions {
+    /*packagingOptions {
         exclude("META-INF/*.kotlin_module")
-    }
+    }*/
 }
 
 dependencies {
@@ -53,13 +53,13 @@ dependencies {
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
-    //implementation 'com.github.vivebamba:bamba-sdk-kotlin:30123f2fe02c83b3fd825d88bd44b0e55fff22ec'
+    implementation 'com.github.vivebamba:bamba-sdk-kotlin:cf3413128bfd088ae80b3d16602d6413d73327f9'
     implementation 'com.squareup.picasso:picasso:2.5.2'
     implementation "androidx.multidex:multidex:2.0.1"
     implementation "com.google.android.material:material:1.4.0"
     implementation 'androidx.cardview:cardview:1.0.0'
     implementation "androidx.recyclerview:recyclerview:1.2.1"
-    implementation 'com.github.vivebamba:bamba-library-android:92b258843e941920f5cedc1a99eeba7b5286c10f'
+    implementation 'com.github.vivebamba:bamba-library-android:ecf524d8528ce0f4e0fe59cf2e88cd0effd6cebe'
 
-    implementation project(':bamba-sdk-kotlin')
+    //implementation project(':bamba-sdk-kotlin')
 }

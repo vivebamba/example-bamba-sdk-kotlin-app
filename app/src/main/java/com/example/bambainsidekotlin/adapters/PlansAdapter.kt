@@ -44,6 +44,7 @@ class PlansAdapter (private val plans: List<Product>): RecyclerView.Adapter<Plan
                 bundle.putString("planSlug", slug)
                 bundle.putString("planName", planName)
                 bundle.putString("planSku", planSku)
+                bundle.putString("terms", selectedPlan.terms)
                 bundle.putParcelableArrayList("planDescription", ArrayList(parcelablePlanDescriptionList))
 
                 planDescriptionFragment.arguments = bundle

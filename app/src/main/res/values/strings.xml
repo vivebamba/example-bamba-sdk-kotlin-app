@@ -23,4 +23,5 @@
     <string name="description_detail_item_format">
         • %1$s
     </string>
+    <string name="service_terms"><u>Términos y condiciones</u></string>
 </resources>
