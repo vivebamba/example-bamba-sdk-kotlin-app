@@ -28,12 +28,12 @@ class MainActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         val bamba = Bamba
-        bamba.apiKey = "735bda43-17d0-45cb-8aa0-4686182594dc"
+        bamba.apiKey = "7f6f4a56-9627-4e13-a51d-c2527eb8242f"
         bamba.broadcastApiKey = "6217c228299d56eb1294"
         bamba.user(
-            "Nicola Tesla",
-            "Mandić",
-            "5525454152",
+            "El Micke",
+            "Osorio",
+            "9991234567",
             "e7705831-70e4-403a-85cf-f77ccb279ce5"
         )
 
