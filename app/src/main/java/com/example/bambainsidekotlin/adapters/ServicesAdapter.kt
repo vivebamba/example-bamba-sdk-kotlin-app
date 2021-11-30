@@ -10,13 +10,12 @@ import android.widget.Toast
 import androidx.appcompat.widget.SwitchCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.bambainsidekotlin.R
-import com.example.bambainsidekotlin.models.Service
 import com.example.bambainsidekotlin.services.BambaService
-import com.vivebamba.client.models.CustomerService
+import com.vivebamba.client.models.CustomerServices
 import java.lang.Exception
 import java.time.Month
 
-class ServicesAdapter (private val applicationContext: Context, private val mServices: List<CustomerService>):  RecyclerView.Adapter<ServicesAdapter.ViewHolder>() {
+class ServicesAdapter (private val applicationContext: Context, private val mServices: List<CustomerServices>):  RecyclerView.Adapter<ServicesAdapter.ViewHolder>() {
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val serviceNameTextView: TextView = itemView.findViewById(R.id.service_name)
@@ -33,7 +32,7 @@ class ServicesAdapter (private val applicationContext: Context, private val mSer
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val service: CustomerService = mServices[position]
+        val service: CustomerServices = mServices[position]
         val serviceNameTextView = holder.serviceNameTextView
         val serviceRenewalDateTextView = holder.renewalDateTextView
         serviceNameTextView.text = service.name
@@ -50,10 +49,10 @@ class ServicesAdapter (private val applicationContext: Context, private val mSer
 
     }
 
-    private fun onCancelService(service: CustomerService) {
+    private fun onCancelService(service: CustomerServices) {
         try {
             val bambaService = BambaService()
-            bambaService.cancelService(service.id)
+            bambaService.cancelService(service.id!!)
             Toast.makeText(applicationContext, "Tu plan ha sido cancelado", Toast.LENGTH_LONG).show()
         } catch (e: Exception) {
             println(e.message)
@@ -61,10 +60,10 @@ class ServicesAdapter (private val applicationContext: Context, private val mSer
         }
     }
 
-    private fun onRenewService(service: CustomerService) {
+    private fun onRenewService(service: CustomerServices) {
         try {
             val bambaService = BambaService()
-            bambaService.placeOrder(productSku = service.sku)
+            bambaService.placeOrder(productSku = service.sku!!)
             Toast.makeText(applicationContext, "Tu plan ha sido renovado", Toast.LENGTH_LONG).show()
         } catch (e: Exception) {
             println(e.message)

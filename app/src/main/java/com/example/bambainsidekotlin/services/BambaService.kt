@@ -13,12 +13,12 @@ import org.json.JSONArray
 import org.json.JSONObject
 
 class BambaService {
-    fun getProducts(): ArrayList<Product>{
+    fun getProducts(): List<Product>{
         val storeApi = StoreApi()
         val moshi = Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
         val jsonAdapter: JsonAdapter<Product> = moshi.adapter(Product::class.java)
-        val products: List<Product> = storeApi.storeProductsGet()
-        val jsArray = JSONArray(products)
+        return storeApi.storeProductsGet()
+        /*val jsArray = JSONArray(products)
         val productList = ArrayList<Product>()
         for (i in 0 until jsArray.length()) {
             val jsonObject = jsArray.getJSONObject(i)
@@ -27,7 +27,7 @@ class BambaService {
                 productList.add(product)
             }
         }
-        return productList
+        return productList*/
     }
 
     fun placeOrder(productSku: String) {
@@ -55,43 +55,16 @@ class BambaService {
         storeApi.storeOrdersPost(order)
     }
 
-    fun getServices(): ArrayList<CustomerService> {
+    fun getServices(): List<CustomerServices> {
         val customerApi = CustomerApi()
         val loggedUser = LoggedUser
 
-        val services = customerApi.customerCustomerIdServicesGet(loggedUser.id)
-        val jsArray = JSONArray(services)
-        val servicesList = ArrayList<CustomerService>()
-        val moshi = Moshi.Builder().add(KotlinJsonAdapterFactory()).add(OffsetDateTimeAdapter()).build()
-        val jsonAdapter: JsonAdapter<CustomerService> = moshi.adapter(CustomerService::class.java)
-
-        for (i in 0 until jsArray.length()) {
-            val jsonObject = jsArray.getJSONObject(i)
-            val customerService: CustomerService? = jsonAdapter.fromJson(jsonObject.toString())
-            if (customerService is CustomerService)
-                servicesList.add(customerService)
-        }
-
-        return servicesList
+        return customerApi.customerCustomerIdServicesGet(loggedUser.id)
     }
 
-    fun cancelService(serviceId: String): List<CancellationResponse> {
+    fun cancelService(serviceId: String) {
         val customerApi = CustomerApi()
         val loggedUser = LoggedUser
-        val response = customerApi.customerCustomerIdServicesServiceIdCancelPut(customerId = loggedUser.id, serviceId = serviceId)
-
-        val jsArray = JSONArray(response)
-        val servicesList = ArrayList<CancellationResponse>()
-        val moshi = Moshi.Builder().add(KotlinJsonAdapterFactory()).add(OffsetDateTimeAdapter()).build()
-        val jsonAdapter: JsonAdapter<CancellationResponse> = moshi.adapter(CancellationResponse::class.java)
-
-        for (i in 0 until jsArray.length()) {
-            val jsonObject = jsArray.getJSONObject(i)
-            val cancellations: CancellationResponse? = jsonAdapter.fromJson(jsonObject.toString())
-            if (cancellations is CancellationResponse )
-                servicesList.add(cancellations)
-        }
-
-        return servicesList
+        customerApi.customerCustomerIdServicesServiceIdCancelPut(customerId = loggedUser.id, serviceId = serviceId)
     }
 }
