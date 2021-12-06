@@ -28,22 +28,23 @@ class MainActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         val bamba = Bamba
-        bamba.apiKey = "1835fc79-64c5-4495-b1d3-e87227844236"
+        bamba.apiKey = "7f6f4a56-9627-4e13-a51d-c2527eb8242f"
         bamba.broadcastApiKey = "6217c228299d56eb1294"
         bamba.user(
-            "Adrian",
-            "Galicia Dev Test",
-            "5554762014",
-            "68884b0e-b424-48eb-8775-fe197c6b9e7c"
+            "El Micke",
+            "Osorio",
+            "9991234567",
+            "e7705831-70e4-403a-85cf-f77ccb279ce5"
         )
 
-        bottomNavigationView.setOnNavigationItemSelectedListener {
+        bottomNavigationView.setOnItemSelectedListener {
             when (it.itemId) {
                 R.id.home -> setCurrentFragment(homeFragment)
                 R.id.plans -> setCurrentFragment(plansFragment)
                 R.id.bamba -> setCurrentFragment(bambaFragment)
                 R.id.profile -> setCurrentFragment(profileFragment)
             }
+
             true
         }
     }

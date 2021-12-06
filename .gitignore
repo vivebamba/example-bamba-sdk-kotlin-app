@@ -99,8 +99,7 @@ lint/generated/
 lint/outputs/
 lint/tmp/
 # lint/reports/
-cle
-/app/
+
 
 # Secrets File
 **/*/res/values/secrets.xml

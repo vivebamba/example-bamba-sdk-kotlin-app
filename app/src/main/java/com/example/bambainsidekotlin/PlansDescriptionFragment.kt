@@ -1,6 +1,8 @@
 package com.example.bambainsidekotlin
 
+import android.content.Intent
 import android.content.res.Resources
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,9 +15,10 @@ import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.bambainsidekotlin.adapters.ImplPlanDescription
 import com.example.bambainsidekotlin.adapters.PlanDescriptionAdapter
-import com.example.bambainsidekotlin.models.ParcelableProductDescription
 import com.example.bambainsidekotlin.services.BambaService
+import com.vivebamba.client.models.ProductDescription
 
 
 private const val ARG_PLAN_SLUG = "planSlug"
@@ -23,6 +26,7 @@ private const val ARG_PLAN_PRICE = "planPrice"
 private const val ARG_PLAN_NAME = "planName"
 private const val ARG_PLAN_SKU = "planSku"
 private const val ARG_PLAN_DESCRIPTION = "planDescription"
+private const val ARG_TERMS = "terms"
 
 class PlansDescriptionFragment : Fragment() {
 
@@ -30,7 +34,8 @@ class PlansDescriptionFragment : Fragment() {
     private var planPrice: Double? = null
     private var planName: String? = null
     private var planSku: String? = null
-    private var planDescriptionParcelable: ArrayList<ParcelableProductDescription>? = null
+    private var terms: String? = null
+    private var planDescriptionParcelable: ArrayList<ImplPlanDescription>? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,6 +44,7 @@ class PlansDescriptionFragment : Fragment() {
             planPrice = it.getDouble(ARG_PLAN_PRICE)
             planName = it.getString(ARG_PLAN_NAME)
             planSku = it.getString(ARG_PLAN_SKU)
+            terms = it.getString(ARG_TERMS)
             planDescriptionParcelable = it.getParcelableArrayList(ARG_PLAN_DESCRIPTION)
         }
     }
@@ -54,23 +60,21 @@ class PlansDescriptionFragment : Fragment() {
         val plansFragment = PlansFragment()
 
         val descriptionListRecyclerView = view.findViewById(R.id.planDescription) as RecyclerView
-        val adapter = planDescriptionParcelable?.let { PlanDescriptionAdapter(it) }
+        val adapter = planDescriptionParcelable?.let { PlanDescriptionAdapter(it.map { ProductDescription(it.section, it.body) } as ArrayList<ProductDescription>) }
         descriptionListRecyclerView.adapter = adapter
         descriptionListRecyclerView.layoutManager = LinearLayoutManager(activity)
 
-        toolbar?.setNavigationOnClickListener(object : View.OnClickListener {
-            override fun onClick(v: View?) {
-                val fragmentManager = getFragmentManager()
-                val f = fragmentManager?.findFragmentById(R.id.flFragment)
-                val fragmentTransaction = fragmentManager?.beginTransaction()
-                fragmentTransaction?.apply {
-                    if (f != null) {
-                        replace(f.id, plansFragment)
-                    }
-                    commit()
+        toolbar?.setNavigationOnClickListener {
+            val fragmentManager = parentFragmentManager
+            val f = fragmentManager.findFragmentById(R.id.flFragment)
+            val fragmentTransaction = fragmentManager.beginTransaction()
+            fragmentTransaction.apply {
+                if (f != null) {
+                    replace(f.id, plansFragment)
                 }
+                commit()
             }
-        })
+        }
         this.setupBuyButtonListener(view)
         val resources: Resources = view.context.resources
         val priceFormat: String =
@@ -81,7 +85,20 @@ class PlansDescriptionFragment : Fragment() {
         val priceView: TextView = view.findViewById(R.id.price)
         priceView.text = priceFormat
 
+        val serviceTerms: TextView = view.findViewById(R.id.tvTerms)
+        serviceTerms.setOnClickListener {
+            terms?.let { it1 -> openWebPage(it1) }
+        }
+
         return view
+    }
+
+    fun openWebPage(url: String) {
+        val webpage: Uri = Uri.parse(url)
+        val intent = Intent(Intent.ACTION_VIEW, webpage)
+        if (activity?.let { intent.resolveActivity(it.packageManager) } != null) {
+            startActivity(intent)
+        }
     }
 
     companion object {
@@ -90,7 +107,7 @@ class PlansDescriptionFragment : Fragment() {
             planSlug: String,
             planPrice: Double,
             planName: String,
-            planDescriptionParcelable: ArrayList<ParcelableProductDescription>
+            planDescriptionParcelable: ArrayList<ProductDescription>
         ) =
             PlansDescriptionFragment().apply {
                 arguments = Bundle().apply {
@@ -106,24 +123,22 @@ class PlansDescriptionFragment : Fragment() {
     private fun setupBuyButtonListener(view: View) {
         val button = view.findViewById<Button>(R.id.buy_button)
         val successfulPurchaseFragment = SuccessfulPruchaseFragment()
-        button.setOnClickListener(object : View.OnClickListener {
-            override fun onClick(v: View?) {
-                try {
-                    val bambaService = BambaService()
-                    bambaService.placeOrder(planSku.toString())
-                    val fragmentManager = getFragmentManager()
-                    val f = fragmentManager?.findFragmentById(R.id.flFragment)
-                    val fragmentTransaction = fragmentManager?.beginTransaction()
-                    fragmentTransaction?.apply {
-                        if (f != null) {
-                            replace(f.id, successfulPurchaseFragment)
-                        }
-                        commit()
+        button.setOnClickListener {
+            try {
+                val bambaService = BambaService()
+                bambaService.placeOrder(planSku.toString())
+                val fragmentManager = parentFragmentManager
+                val f = fragmentManager.findFragmentById(R.id.flFragment)
+                val fragmentTransaction = fragmentManager.beginTransaction()
+                fragmentTransaction.apply {
+                    if (f != null) {
+                        replace(f.id, successfulPurchaseFragment)
                     }
-                } catch (e: Exception) {
-                    Toast.makeText(view.context, e.message, Toast.LENGTH_LONG).show()
+                    commit()
                 }
+            } catch (e: Exception) {
+                Toast.makeText(view.context, e.message, Toast.LENGTH_LONG).show()
             }
-        })
+        }
     }
 }

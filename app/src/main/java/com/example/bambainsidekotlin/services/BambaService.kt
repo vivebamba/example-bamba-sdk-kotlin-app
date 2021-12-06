@@ -2,21 +2,23 @@ package com.example.bambainsidekotlin.services
 
 import com.example.bambainsidekotlin.models.DefaultPaymentMethod
 import com.example.bambainsidekotlin.models.LoggedUser
-import com.example.bambainsidekotlin.models.ParcelableProductDetails
 import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
+import com.vivebamba.client.apis.CustomerApi
 import com.vivebamba.client.apis.StoreApi
+import com.vivebamba.client.infrastructure.OffsetDateTimeAdapter
 import com.vivebamba.client.models.*
 import org.json.JSONArray
+import org.json.JSONObject
 
-class BambaService{
-    fun getProducts(): ArrayList<Product>{
+class BambaService {
+    fun getProducts(): List<Product>{
         val storeApi = StoreApi()
         val moshi = Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
         val jsonAdapter: JsonAdapter<Product> = moshi.adapter(Product::class.java)
-        val products: List<Product> = storeApi.storeProductsGet()
-        val jsArray = JSONArray(products)
+        return storeApi.storeProductsGet()
+        /*val jsArray = JSONArray(products)
         val productList = ArrayList<Product>()
         for (i in 0 until jsArray.length()) {
             val jsonObject = jsArray.getJSONObject(i)
@@ -25,7 +27,7 @@ class BambaService{
                 productList.add(product)
             }
         }
-        return productList
+        return productList*/
     }
 
     fun placeOrder(productSku: String) {
@@ -53,15 +55,16 @@ class BambaService{
         storeApi.storeOrdersPost(order)
     }
 
-    fun getProductDescription(selectedPlanDescriptionList: List<ProductDescription>): ArrayList<com.example.bambainsidekotlin.models.ParcelableProductDescription> {
-        val productList = ArrayList<com.example.bambainsidekotlin.models.ParcelableProductDescription>()
-        for (element in selectedPlanDescriptionList) {
-            val parcelableProductDescription = com.example.bambainsidekotlin.models.ParcelableProductDescription(
-                element.section,
-                element.body
-            )
-            productList.add(parcelableProductDescription)
-        }
-        return productList
+    fun getServices(): List<CustomerServices> {
+        val customerApi = CustomerApi()
+        val loggedUser = LoggedUser
+
+        return customerApi.customerCustomerIdServicesGet(loggedUser.id)
+    }
+
+    fun cancelService(serviceId: String) {
+        val customerApi = CustomerApi()
+        val loggedUser = LoggedUser
+        customerApi.customerCustomerIdServicesServiceIdCancelPut(customerId = loggedUser.id, serviceId = serviceId)
     }
 }
